@@ -1,0 +1,15 @@
+# data-structure
+## List的实现
+* clear
+* find
+* toString
+* insert
+* append
+* remove
+* front
+* end
+* prev
+* next
+* currPos
+* moveTo
+* getElement
