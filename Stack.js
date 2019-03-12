@@ -45,6 +45,7 @@ function mulBase(num,base){
 }
 // 转换数字进制
 
+
 const isPlindrome=(word)=>{
 	let s=new Stack();
 	for (let i=0;i<word.length;i++){
@@ -57,6 +58,7 @@ const isPlindrome=(word)=>{
 	return (word === convertedWord);
 };
 // 判断字符串是否回文
+
 
 let s=new Stack();
 s.push('David');
