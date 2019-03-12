@@ -20,3 +20,15 @@
 * clear
 * 转换数字进制
 * 判断字符串是否是回文
+## Queue的实现
+* enqueue
+* dequeue
+* front
+* back
+## LinkedList的实现
+* find
+* insert
+* remove
+* display
+* DoublyLinkedList 双向链表
+* CircularLinkedList 循环链表
