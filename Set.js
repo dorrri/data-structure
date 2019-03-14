@@ -20,11 +20,13 @@ function Set() {
 	const show=()=>this.dataStore;
 	// 返回所有元素
 	const union=(set)=>{
-		let iterSet=(this.size()<set.size())?this:set;
-		let unionSet=(this.size()>=set.size())?this:set;
-		for (let i=0;i<iterSet.size();i++){
-			if (!unionSet.dataStore.includes(iterSet.dataStore[i])){
-				unionSet.add(iterSet.dataStore[i]);
+		let unionSet=new Set();
+		for (let i=0;i<this.size();i++) {
+			unionSet.add(this.dataStore[i]);
+		}
+		for (let i=0;i<set.size();i++){
+			if (!this.dataStore.includes(set.dataStore[i])){
+				unionSet.add(set.dataStore[i]);
 			}
 		}
 		return unionSet
@@ -32,15 +34,48 @@ function Set() {
 	// 求两个集合的并集
 	const size=()=>this.dataStore.length;
 	// 返回集合的长度
+	const intersect=(set)=>{
+        let interSet=new Set();
+        for (let i=0;i<set.size();i++){
+        	if (this.dataStore.includes(set.dataStore[i])){
+        		interSet.add(set.dataStore[i]);
+			}
+		}
+        return interSet
+	};
+	// 求两个集合的交集
+	const subset=(set)=>{
+		if (this.size()>set.size()){
+			return false
+		} else {
+			for (let i=0;i<this.size();i++){
+				if (!set.dataStore.includes(this.dataStore[i])){
+					return false
+				}
+			}
+			return true
+		}
+	};
+	// 判断该集合是否是另一个集合的子集
+	const difference=(set)=>{
+	    let diffSet=new Set();
+	    for (let i=0;i<this.size();i++){
+	    	if (!set.dataStore.includes(this.dataStore[i])){
+	    		diffSet.add(this.dataStore[i]);
+			}
+		}
+	    return diffSet
+	};
+	// 求被传入的集合对于原集合的补集
 
 	this.dataStore=[];
 	this.add=add;
 	this.remove=remove;
 	this.size=size;
 	this.union=union;
-	// this.intersect=intersect;
-	// this.subset=subset;
-	// this.difference=difference;
+	this.intersect=intersect;
+	this.subset=subset;
+	this.difference=difference;
 	this.show=show;
 }
 
@@ -58,3 +93,6 @@ ss.add('Raymond');
 ss.add('Cynthia');
 ss.add('Jonathan');
 console.log(s.union(ss).show());
+console.log(s.intersect(ss).show());
+console.log(s.intersect(ss).subset(ss));
+console.log(s.difference(s.intersect(ss)).show());
