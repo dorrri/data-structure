@@ -33,11 +33,17 @@ function CArray(numElements) {
 	};
 
 	const bubbleSort=()=>{
+		let didSwap;
 		for (let i=this.numElements;i>1;i--){
+			didSwap=false;
 			for (let j=0;j<i-1;j++){
 				if (this.dataStore[j]>this.dataStore[j+1]){
 					this.swap(j,j+1);
+					didSwap=true;
 				}
+			}
+			if (didSwap===false) {
+				return;
 			}
 		}
 	};
@@ -54,7 +60,7 @@ function CArray(numElements) {
 			this.swap(i,min);
 		}
 	};
-	// 选择排序
+	// 选择排序（为什么最好时间复杂度是O(n)？）
 	const insertionSort=()=>{
 		let temp;
 		for (let i=1;i<this.numElements;i++){
@@ -82,52 +88,31 @@ function CArray(numElements) {
 		}
 	};
 	// 希尔排序
-	const mergeSort=()=>{
-		if (this.numElements<2){
-			return;
+	const mergeSort=(arr)=>{
+		if (arr.length<2){
+			return arr;
 		}
-		let step=1;
-		let left,right;
-		while (step<this.numElements){
-			left=0;
-			right=step;
-			while (right+step<=this.numElements){
-				mergeArrays(left,left+step,right,right+step);
-				left=right+step;
-				right=left+step;
-			}
-			if (right<this.numElements){
-				mergeArrays(left,left+step,right,this.numElements);
-			}
-			step*=2;
-		}
+		let mid=Math.floor(arr.length/2);
+		let leftArr=arr.slice(0,mid);
+		let rightArr=arr.slice(mid);
+		return mergeArrays(this.mergeSort(leftArr),this.mergeSort(rightArr));
 	};
-	const mergeArrays=(startLeft,stopLeft,startRight,stopRight)=>{
-		let rightArr=new Array(stopRight-startRight+1);
-		let leftArr=new Array(stopLeft-startLeft+1);
-		let k=startRight;
-		for (let i=0;i<(rightArr.length-1);i++){
-			rightArr[i]=this.dataStore[k];
-			k++;
-		}
-		k=startLeft;
-		for (let i=0;i<leftArr.length-1;i++){
-			leftArr[i]=this.dataStore[k];
-			k++;
-		}
-		rightArr[rightArr.length-1]=Infinity;
-		leftArr[leftArr.length-1]=Infinity;
-		let m=0;
-		let n=0;
-		for (let i=startLeft;i<stopRight;i++){
-			if (leftArr[m]<=rightArr[n]){
-				this.dataStore[i]=leftArr[m];
-				m++;
+	const mergeArrays=(left,right)=>{
+		let result=[];
+        while (left.length>0 && right.length>0) {
+        	if (left[0]<=right[0]) {
+        		result.push(left.shift());
 			} else {
-				this.dataStore[i]=rightArr[n];
-				n++
+        		result.push(right.shift());
 			}
 		}
+		while(left.length){
+        	result.push(left.shift());
+		}
+		while (right.length) {
+        	result.push(right.shift());
+		}
+		return result;
 	};
 	// 归并排序
 
@@ -168,7 +153,7 @@ function quickSort(arr){
 }
 // 快速排序
 
-let nums=new CArray(10);
+let nums=new CArray(1000);
 nums.setData();
 // console.log(nums.toString()+'\n');
 let start=new Date().getTime();
@@ -196,9 +181,10 @@ console.log("希尔排序："+(stop-start)+'\n');
 
 nums.setData();
 start=new Date().getTime();
-nums.mergeSort();
+let arr=nums.mergeSort(nums.dataStore);
 stop=new Date().getTime();
 console.log("归并排序："+(stop-start)+'\n');
+// console.log(arr);
 
 nums.setData();
 start=new Date().getTime();
