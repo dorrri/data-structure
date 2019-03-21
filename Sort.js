@@ -115,6 +115,33 @@ function CArray(numElements) {
 		return result;
 	};
 	// 归并排序
+	const heapSort=()=>{
+	    buildMaxHeap(this.dataStore);
+
+	    for (let i=this.numElements-1;i>0;i--) {
+	    	this.swap(0,i);
+	    	adjustHeap(this.dataStore,0,i);
+		}
+	};
+	const buildMaxHeap=(arr)=>{
+	    for (let i=Math.floor(arr.length/2)-1;i>=0;i--) {
+	    	adjustHeap(arr,i,arr.length);
+		} 	
+	};
+	const adjustHeap=(arr,i,len)=>{
+		for (let k=2*i+1;k<len;k=2*k+1) {
+			if (k+1<len && arr[k]<arr[k+1]) {
+				k++;
+			}
+			if (arr[k]>arr[i]) {
+				this.swap(i,k);
+				i=k; //将交换后的子节点重新作为根节点
+			} else {
+				break;
+			}
+		}
+	};
+	//堆排序
 
 	this.dataStore=[];
 	this.pos=0;
@@ -133,6 +160,7 @@ function CArray(numElements) {
 	this.shellSort=shellSort;
 	this.gaps=[5,3,1];
 	this.mergeSort=mergeSort;
+	this.heapSort=heapSort;
 }
 
 function quickSort(arr){
@@ -153,7 +181,7 @@ function quickSort(arr){
 }
 // 快速排序
 
-let nums=new CArray(1000);
+let nums=new CArray(10000);
 nums.setData();
 // console.log(nums.toString()+'\n');
 let start=new Date().getTime();
@@ -194,6 +222,14 @@ console.log("内置排序："+(stop-start)+'\n');
 
 nums.setData();
 start=new Date().getTime();
+nums.heapSort();
+stop=new Date().getTime();
+console.log("堆排序："+(stop-start)+'\n');
+
+nums.setData();
+start=new Date().getTime();
 newNums=quickSort(nums.dataStore);
 stop=new Date().getTime();
 console.log("快速排序："+(stop-start)+'\n');
+
+
