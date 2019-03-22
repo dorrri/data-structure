@@ -48,6 +48,7 @@ function CArray(numElements) {
 		}
 	};
 	// 冒泡排序
+
 	const selectionSort=()=>{
 		let min;
 		for (let i=0;i<this.numElements-1;i++){
@@ -61,6 +62,7 @@ function CArray(numElements) {
 		}
 	};
 	// 选择排序（为什么最好时间复杂度是O(n)？）
+
 	const insertionSort=()=>{
 		let temp;
 		for (let i=1;i<this.numElements;i++){
@@ -74,6 +76,7 @@ function CArray(numElements) {
 		} 
 	};
 	// 插入排序
+
 	const shellSort=()=>{
 		for (let g=0;g<this.gaps.length;g++){
 			for (let i=this.gaps[g];i<this.numElements;i++){
@@ -88,6 +91,7 @@ function CArray(numElements) {
 		}
 	};
 	// 希尔排序
+
 	const mergeSort=(arr)=>{
 		if (arr.length<2){
 			return arr;
@@ -115,6 +119,7 @@ function CArray(numElements) {
 		return result;
 	};
 	// 归并排序
+
 	const heapSort=()=>{
 	    buildMaxHeap(this.dataStore);
 
@@ -143,6 +148,36 @@ function CArray(numElements) {
 	};
 	//堆排序
 
+	const radixSort=()=>{
+		let maxRadix=this.numElements.toString().length,
+			dev=1,
+			mod=10,
+		    arrLen=this.numElements,
+		    counter=[];
+		
+		for (let i=1;i<=maxRadix;i++,dev*=10,mod*=10) {
+
+			for (let j=0;j<arrLen;j++) {
+				let bucket=parseInt((this.dataStore[j]%mod)/dev);
+				if (counter[bucket]===undefined) {
+					counter[bucket]=[];
+				}
+				counter[bucket].push(this.dataStore[j]);
+			}
+			let counterLen=counter.length,
+			    pos=0;
+			for (let j=0;j<counterLen;j++) {
+				let value=null;
+				if (counter[j]!==undefined) {
+					while((value=counter[j].shift())!==undefined) {
+						this.dataStore[pos++]=value;
+					}
+				}
+			}
+		}
+	};
+	//基数排序
+
 	this.dataStore=[];
 	this.pos=0;
 	this.numElements=numElements;
@@ -161,6 +196,7 @@ function CArray(numElements) {
 	this.gaps=[5,3,1];
 	this.mergeSort=mergeSort;
 	this.heapSort=heapSort;
+	this.radixSort=radixSort;
 }
 
 function quickSort(arr){
@@ -231,5 +267,12 @@ start=new Date().getTime();
 newNums=quickSort(nums.dataStore);
 stop=new Date().getTime();
 console.log("快速排序："+(stop-start)+'\n');
+
+nums.setData();
+start=new Date().getTime();
+nums.radixSort();
+stop=new Date().getTime();
+console.log("基数排序："+(stop-start)+'\n');
+// console.log(nums.toString());
 
 
