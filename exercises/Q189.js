@@ -7,7 +7,7 @@ var rotate = function(nums, k) {
 	var length=nums.length;
 	var tem=nums.splice(length-3,3);
 	console.log(tem);
-	nums.splice(0, 0, ...tem)
+	nums.splice(0, 0, ...tem);
 	console.log(nums);
 };
 

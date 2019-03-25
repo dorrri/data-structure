@@ -1,3 +1,11 @@
+
+// 输入一个链表，按链表值从尾到头的顺序返回一个ArrayList。
+
+/**
+ * @param {ListNode} head
+ * @return {number[]} ArrayList
+ * */
+
 function printListFromTailToHead(head)
 {
 	// write code here
