@@ -1,4 +1,4 @@
-function Set() {
+function Set1() {
 	const add=(data)=>{
 		if (this.dataStore.indexOf(data)<0){
 			this.dataStore.push(data);
@@ -79,7 +79,7 @@ function Set() {
 	this.show=show;
 }
 
-let s=new Set();
+let s=new Set1();
 s.add('David');
 s.add('Jennifer');
 s.add('Mike');
@@ -88,7 +88,7 @@ console.log(s.add('Mike'));
 console.log(s.show());
 console.log(s.remove('Mike'));
 console.log(s.show());
-let ss=new Set();
+let ss=new Set1();
 ss.add('Raymond');
 ss.add('Cynthia');
 ss.add('Jonathan');
