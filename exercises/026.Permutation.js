@@ -79,4 +79,4 @@ function Permutation2(str){
 	}
 }
 
-console.log(Permutation2('aa'));
+console.log(Permutation2('abcd'));

@@ -2,7 +2,7 @@ const maxCommonString=(str1,str2)=>{
 	let result="",
 	    max=0,
 	    index=0;
-	if (str1==null || str1.length===0 ||str2==null || str2.length===0) {
+	if (!str1 ||!str2) {
 		return result
 	}
 	let len1=str1.length,
